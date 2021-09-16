@@ -1,0 +1,38 @@
+https://rezerwacja.martynaklewinowska.pl
+
+https://rezerwacja.martynaklewinowska.pl/api/events
+
+https://rezerwacja.martynaklewinowska.pl/api/db-cleanup
+
+
+sandbox/sandbox
+
+
+POST /reservation
+{
+    "idDate": 5,
+    "firstName": "Karol",
+    "lastName": "K.",
+    "email": "klewi1983@wp.pl",
+    "phone": "500000000",
+    "survey": {
+        "idSurvey": 1,
+        "items": [
+            {
+                "idSurveyItem": 1,
+                "response": "2"
+            },
+            {
+                "idSurveyItem": 2,
+                "response": "1,2,3"
+            }
+        ]
+    }
+}
+
+
+POST /payment
+{
+  "blikCode": null,
+  "redirectAfterPaymentUrl": "http://localhost:80"
+}

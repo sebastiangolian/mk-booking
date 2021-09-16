@@ -1,0 +1,270 @@
+openapi: 3.0.0
+info:
+  title: Martyna Klewinowska Booking API
+  description: Api for booking
+  version: 1.0.0
+servers:
+  - url: https://booking.martynaklewinowska.pl/api
+    description: Production server
+  - url: http://booking.local/api
+    description: Staging server
+paths:
+  /events:
+    get:
+      tags:
+        - events
+      summary: Returns a list of active events.
+      responses:
+        '200':
+          $ref: "#/components/responses/EventsResponse"
+  /reservation:
+    post:
+      tags:
+        - reservation
+      summary: Register new reservation.
+      requestBody:
+        $ref: "#/components/requestBodies/PostReservationRequest"
+      responses:
+        '200':
+          $ref: "#/components/responses/ReservationResponse"
+  /reservation/{idReservation}:
+    parameters:
+      - name: idReservation
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - reservation
+      summary: Get reservation status.
+      responses:
+        '200':
+          $ref: "#/components/responses/ReservationResponse"
+  /reservation/{idReservation}/payment:
+    parameters:
+      - name: idReservation
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    post:
+      tags:
+        - payment
+      summary: Initialize payment for reservation.
+      requestBody:
+        $ref: "#/components/requestBodies/PostPaymentRequest"
+      responses:
+        '200':
+          $ref: "#/components/responses/PaymentResponse"
+    get:
+      tags:
+        - payment
+      summary: Check payment status.
+      responses:
+        '200':
+          $ref: "#/components/responses/PaymentResponse"
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        idEvent:
+          type: integer
+        order:
+          type: integer
+        thumbnailUrl:
+          type: string
+          format: uri
+        description:
+          type: string
+        dates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Date"
+        survey:
+          $ref: "#/components/schemas/Survey"
+    Date:
+      type: object
+      properties:
+        idDate:
+          type: integer
+        date:
+          type: string
+          format: date
+        timeFrom:
+          type: string
+          pattern: ^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$
+        timeTo:
+          type: string
+          pattern: ^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$
+    Reservation:
+      type: object
+      required:
+        - idReservation
+        - reservationNumber
+        - paymentUrl
+        - idDate
+        - firstName
+        - lastName
+        - email
+        - phone
+        - survey
+      properties:
+        idReservation:
+          type: string
+          format: uuid
+          readOnly: true
+        reservationNumber:
+          type: integer
+          readOnly: true
+        payment:
+          $ref: "#/components/schemas/Payment"
+        idDate:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          pattern: ^[+]{0,1}[0-9]{9,15}$
+        survey:
+          $ref:  "#/components/schemas/Survey"
+    Payment:
+      type: object
+      readOnly: true
+      description: not null if payment required
+      properties:
+        idPayment:
+          type: string
+        isProgress:
+          type: boolean
+        canStartNewPayment:
+          type: boolean
+        status:
+          type: string
+        paymentUrl:
+          type: string
+        description:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        mustBeCompletedBefore:
+          type: string
+          format: date-time
+    PaymentRegistration:
+      type: object
+      required:
+        - blikCode
+      properties:
+        blikCode:
+          type: string
+          nullable: true
+          pattern: '^d{6}$'
+          example: 123321
+    Survey:
+      type: object
+      required:
+        - idSurvey
+        - description
+      properties:
+        idSurvey:
+          type: integer
+        description:
+          type: string
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/SurveyItem"
+    SurveyItem:
+      type: object
+      required:
+        - idSurveyItem
+        - question
+        - required
+        - type
+        - order
+        - response
+      properties:
+        idSurveyItem:
+          type: integer
+        question:
+          type: string
+          readOnly: true
+        responses:
+          readOnly: true
+          type: array
+          items:
+            type: string
+        defaultResponse:
+          type: string
+          readOnly: true
+        required:
+          type: boolean
+          readOnly: true
+        type:
+          readOnly: true
+          type: string
+          enum:
+            - TEXT
+            - YES_NO
+            - CHOICE
+            - MULTI_CHOICE
+            - NUMBER
+        order:
+          type: integer
+          readOnly: true
+        response:
+          writeOnly: true
+          type: string
+  requestBodies:
+    PostReservationRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Reservation"
+    PostPaymentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PaymentRegistration"
+  responses:
+    EventsResponse:
+      description: List of events
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+    ReservationResponse:
+      description: Reservation object
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              item:
+                $ref: "#/components/schemas/Reservation"
+    PaymentResponse:
+      description: Payment object
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              item:
+                $ref: "#/components/schemas/Payment"
