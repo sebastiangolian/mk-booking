@@ -1,0 +1,6 @@
+<h1>Wydarzenia</h1>
+<div class="row">
+    <ng-container *ngIf="events$|async as events">
+        <event-item class="col-12 col-sm-6 col-md-4" *ngFor="let event of events" [event]="event"></event-item>
+    </ng-container>
+</div>

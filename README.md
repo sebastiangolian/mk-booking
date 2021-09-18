@@ -1,27 +1,43 @@
-# MkBooking
+# mk-booking
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.6.
+mk-booking app with angular
 
-## Development server
+### Test app
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+[mk-booking](https://sebastiangolian.github.io/mk-booking)
 
-## Code scaffolding
+## Getting started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+npm install
+```
 
-## Build
+```bash
+npm run start
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Scripts
 
-## Running unit tests
+Build project
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm run build
+```
 
-## Running end-to-end tests
+Test project
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm run test
+```
 
-## Further help
+Lint project
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+npm run lint
+```
+
+Deploy files in gh-pages
+
+```bash
+npm run deploy
+```
