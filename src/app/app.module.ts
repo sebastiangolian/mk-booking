@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AppRoutingModule } from './app-routing.module';
 import { EventCalendarComponent } from './app/components/event-calendar/event-calendar.component';
 import { EventItemComponent } from './app/components/event-item/event-item.component';
@@ -20,19 +19,11 @@ import { EventsComponent } from './app/pages/events/events.component';
 registerLocaleData(localePl);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TestComponent,
-    EventItemComponent,
-    EventsComponent,
-    EventComponent,
-    EventCalendarComponent,
-  ],
+  declarations: [AppComponent, TestComponent, EventItemComponent, EventsComponent, EventComponent, EventCalendarComponent],
   imports: [
     //imorts
     BrowserModule,
     BrowserAnimationsModule,
-    CollapseModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

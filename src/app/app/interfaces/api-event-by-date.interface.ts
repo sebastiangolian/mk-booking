@@ -3,7 +3,7 @@ import { Survey } from './survey.interface';
 
 export interface ApiEventByDate {
   idEvent: number;
-  date: string;
+  date: Date;
   order: number;
   thumbnailUrl: string;
   description: string;

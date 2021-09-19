@@ -53,6 +53,27 @@
 </div>
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
-    <div *ngIf="day.badgeTotal > 0" class="text-center text-secondary fw-bold mt-2">Dostępne terminy</div>
-    <span class="cal-day-number text-right">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    <div (click)="open(content,day)">
+        <div *ngIf="day.badgeTotal > 0" class="text-center text-secondary fw-bold mt-2">Dostępne terminy</div>
+        <span class="cal-day-number text-right">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+</ng-template>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Wybierz godzinę</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #timeForm="ngForm">
+            <select class="form-select" aria-label="Default select example" required #time>
+                <option *ngFor="let date of currentDates" [value]="date.idDate">{{ date.timeFrom }} - {{date.timeTo}}</option>
+            </select>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(time.value)">Wybierz godzinę</button>
+    </div>
 </ng-template>

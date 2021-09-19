@@ -11,14 +11,10 @@ export class ApiEventMapper {
     };
   }
 
-  static toApiEventByDate(
-    apiEvent: ApiEvent,
-    date: string,
-    apiDate: ApiDate
-  ): ApiEventByDate {
+  static toApiEventByDate(apiEvent: ApiEvent, date: string, apiDate: ApiDate): ApiEventByDate {
     return {
       idEvent: apiEvent.idEvent,
-      date: date,
+      date: new Date(date),
       order: apiEvent.order,
       thumbnailUrl: apiEvent.thumbnailUrl,
       description: apiEvent.description,
@@ -32,20 +28,14 @@ export class ApiEventMapper {
     event.dates.forEach((curDate) => {
       //first element
       if (apiEventsByDate.length === 0) {
-        apiEventsByDate.push(
-          ApiEventMapper.toApiEventByDate(event, curDate.date, curDate)
-        );
+        apiEventsByDate.push(ApiEventMapper.toApiEventByDate(event, curDate.date, curDate));
       } else {
-        const findIndex = apiEventsByDate.findIndex(
-          (e) => e.date === curDate.date
-        );
+        const findIndex = apiEventsByDate.findIndex((e) => e.date.toLocaleDateString() === new Date(curDate.date).toLocaleDateString());
 
         if (findIndex > -1) {
           apiEventsByDate[findIndex].dates.push(curDate);
         } else {
-          apiEventsByDate.push(
-            ApiEventMapper.toApiEventByDate(event, curDate.date, curDate)
-          );
+          apiEventsByDate.push(ApiEventMapper.toApiEventByDate(event, curDate.date, curDate));
         }
       }
     });

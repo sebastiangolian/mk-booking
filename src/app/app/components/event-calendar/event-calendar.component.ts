@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarDateFormatter, CalendarEvent, CalendarMonthViewDay, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
+import { WeekDay } from 'calendar-utils';
 import { addDays, addMonths, addWeeks, endOfDay, endOfMonth, endOfWeek, startOfDay, startOfMonth, startOfWeek, subDays, subMonths, subWeeks } from 'date-fns';
+import { ApiEventByDate } from '../../interfaces/api-event-by-date.interface';
 import { CustomDateFormatter } from '../../providers/custom-date-formatter.provider';
+import { ApiDate } from './../../interfaces/api-date.interface';
 
 type CalendarPeriod = 'day' | 'week' | 'month';
 
@@ -54,6 +58,7 @@ export class EventCalendarComponent implements OnInit {
   @Input() minDate!: Date;
   @Input() maxDate!: Date;
   @Input() eventDates!: Date[];
+  @Input() eventsByDate: ApiEventByDate[] = [];
   view: CalendarView | CalendarPeriod = CalendarView.Month;
   CALENDAR_VIEW = CalendarView;
   viewDate = new Date();
@@ -62,6 +67,10 @@ export class EventCalendarComponent implements OnInit {
   weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
   prevBtnDisabled: boolean = false;
   nextBtnDisabled: boolean = false;
+  closeResult = '';
+  currentDates: ApiDate[] = [];
+
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.dateOrViewChanged();
@@ -84,7 +93,7 @@ export class EventCalendarComponent implements OnInit {
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    alert(events[0].title);
+    //alert(events[0].title);
   }
 
   dateIsValid(date: Date): boolean {
@@ -121,9 +130,6 @@ export class EventCalendarComponent implements OnInit {
   dateOrViewChanged(): void {
     const firstDayCurrentView = endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1));
     const lastDayCurrentView = endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 0));
-
-    console.log(lastDayCurrentView.toLocaleDateString(), this.maxDate.toLocaleDateString());
-
     this.prevBtnDisabled = firstDayCurrentView <= this.minDate;
     this.nextBtnDisabled = lastDayCurrentView >= this.maxDate;
 
@@ -132,5 +138,20 @@ export class EventCalendarComponent implements OnInit {
     } else if (this.viewDate > this.maxDate) {
       this.changeDate(this.maxDate);
     }
+  }
+
+  open(content: TemplateRef<any>, day: WeekDay) {
+    const currentDates = this.eventsByDate.find((event) => event.date.toLocaleDateString() === day.date.toLocaleDateString())?.dates;
+    if (currentDates) {
+      this.currentDates = currentDates;
+    }
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        alert('idDate: ' + result);
+      },
+      (reason) => {
+        //this.closeResult = `Dismissed`;
+      },
+    );
   }
 }
