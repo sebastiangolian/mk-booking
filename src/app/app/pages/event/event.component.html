@@ -1,1 +1,4 @@
-<event-calendar></event-calendar>
+<ng-container *ngIf="event">
+    <h2 [innerText]="event.description" class="mb-4"></h2>
+    <event-calendar [calendarEvents]="calendarEvents" [minDate]="minDate" [maxDate]="maxDate" [eventDates]="eventDates"></event-calendar>
+</ng-container>

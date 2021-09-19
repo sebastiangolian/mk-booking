@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Event } from '../../interfaces/event.interface';
+import { ApiEvent } from '../../interfaces/api-event.interface';
 
 @Component({
   selector: 'event-item',
@@ -13,7 +13,7 @@ import { Event } from '../../interfaces/event.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventItemComponent implements OnInit {
-  @Input() event!: Event;
+  @Input() event!: ApiEvent;
   constructor() {}
 
   ngOnInit(): void {}

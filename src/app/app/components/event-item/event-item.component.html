@@ -1,9 +1,14 @@
-<div class="card">
-    <img [src]="event.thumbnailUrl" class="card-img-top img-fluid" [alt]="event.description">
-    <div class="card-body align-items-center px-1">
-        <h5 class="card-title" [innerText]="event.description"></h5>
-        <p class="card-text text-center mx-auto text-break font-size-0-9 p-0">Some quick example text to build on the card title and make up
-            the bulk of the card's content.</p>
-        <a class="btn btn-primary" [routerLink]="'/events/' + event.idEvent">Zapisz się</a>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img [src]="event.thumbnailUrl" class="img-fluid rounded-start" [alt]="event.description">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">Event: {{event.idEvent}}</h5>
+                <p class="card-text" [innerText]="event.description"></p>
+                <p class="card-text mt-5"><a class="btn btn-primary" [routerLink]="'/events/' + event.idEvent">Sprawdź terminy</a></p>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-export interface Date {
+export interface ApiDate {
   idDate: number;
   date: string;
   timeFrom: string;

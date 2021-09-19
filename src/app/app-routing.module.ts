@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/events', pathMatch: 'full' },
   { path: '*', redirectTo: '/events', pathMatch: 'full' },
   { path: 'events', component: EventsComponent },
-  { path: 'events/:id', component: EventComponent },
+  { path: 'events/:idEvent', component: EventComponent },
 ];
 
 @NgModule({

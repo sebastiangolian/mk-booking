@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Event } from '../interfaces/event.interface';
+import { ApiItem } from '../interfaces/api-item.interface';
+import { ApiEvent } from './../interfaces/api-event.interface';
 import { ApiItems } from './../interfaces/api.items.interface';
 
 @Injectable({
@@ -14,8 +15,13 @@ export class EventService {
 
   constructor(protected http: HttpClient) {}
 
-  getEvents(): Observable<Event[]> {
+  getEvents(): Observable<ApiEvent[]> {
     const url = `${this.url}`;
-    return this.http.get<ApiItems<Event>>(url).pipe(map((api) => api.items));
+    return this.http.get<ApiItems<ApiEvent>>(url).pipe(map((api) => api.items));
+  }
+
+  getEvent(idEvent: string): Observable<ApiEvent> {
+    const url = `${this.url}/${idEvent}`;
+    return this.http.get<ApiItem<ApiEvent>>(url).pipe(map((api) => api.item));
   }
 }

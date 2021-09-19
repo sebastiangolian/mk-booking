@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Event } from '../../interfaces/event.interface';
+import { ApiEvent } from '../../interfaces/api-event.interface';
 import { EventService } from '../../services/event.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit {
-  events$: Observable<Event[]> = new Observable();
+  events$: Observable<ApiEvent[]> = new Observable();
   constructor(protected eventService: EventService) {}
 
   ngOnInit(): void {
