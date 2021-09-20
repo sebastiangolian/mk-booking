@@ -1,0 +1,3 @@
+<ng-container *ngIf="reservation.survey">
+    <survey-item *ngFor="let surveyItem of reservation.survey.items" [surveyItem]="surveyItem"></survey-item>
+</ng-container>

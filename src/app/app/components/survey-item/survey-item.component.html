@@ -1,0 +1,10 @@
+<div *ngIf="surveyItem" class="form-group">
+    <label [innerText]="surveyItem.question"></label>
+    <input type="text" class="form-control" [name]="surveyItem.idSurveyItem.toString()" [(ngModel)]="surveyItem.response" #survey="ngModel"
+        [class.is-invalid]="survey.invalid && survey.touched"
+        [pattern]="pattern" [required]="surveyItem.required">
+    <div *ngIf="survey.touched && survey.invalid && survey.errors" class="text-danger">
+        <div *ngIf="!!survey.errors.required">Wartość jest wymagana</div>
+        <div *ngIf="!!survey.errors.pattern">Nieprawidłowa wartość</div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<form *ngIf="event && reservation" name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" autocomplete="off">
+    <div class="form-group">
+        <label>Imię:</label>
+        <input type="text" class="form-control" name="firstname" [(ngModel)]="reservation.firstName" #firstname="ngModel"
+            [class.is-invalid]="firstname.invalid && firstname.touched"
+            minlength="3" maxlength="25" pattern="[a-zA-Z ]*" required>
+        <div *ngIf="firstname.touched && firstname.invalid && firstname.errors" class="text-danger">
+            <div *ngIf="!!firstname.errors.required">Imię jest wymagane</div>
+            <div *ngIf="!!firstname.errors.minlength">Imię jest za krótkie</div>
+            <div *ngIf="!!firstname.errors.maxlength">Imię jest za długie</div>
+            <div *ngIf="!!firstname.errors.pattern">W imieniu możesz używać tylko liter</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Nazwisko:</label>
+        <input type="text" class="form-control" name="lastName" [(ngModel)]="reservation.lastName" #lastName="ngModel"
+            [class.is-invalid]="lastName.invalid && lastName.touched"
+            minlength="3" maxlength="25" pattern="[a-zA-Z ]*" required>
+        <div *ngIf="lastName.touched && lastName.invalid && lastName.errors" class="text-danger">
+            <div *ngIf="!!lastName.errors.required">Nazwisko jest wymagane</div>
+            <div *ngIf="!!lastName.errors.minlength">Nazwisko jest za krótkie</div>
+            <div *ngIf="!!lastName.errors.maxlength">Nazwisko jest za długie</div>
+            <div *ngIf="!!lastName.errors.pattern">W nazwisku możesz używać tylko liter</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="text" class="form-control" name="email" [(ngModel)]="reservation.email" #email="ngModel"
+            [class.is-invalid]="email.invalid && email.touched" email required>
+        <div *ngIf="email.touched && email.invalid && email.errors" class="text-danger">
+            <div *ngIf="!!email.errors.required">Email jest wymagany</div>
+            <div *ngIf="!!email.errors.email">Email jest nieprawidłowy</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Telefon:</label>
+        <input type="text" class="form-control" name="phone" [(ngModel)]="reservation.phone"
+            #phone="ngModel" [class.is-invalid]="phone.invalid && phone.touched" minlength="3"
+            maxlength="13" pattern="[0-9]*">
+        <div *ngIf="phone.touched && phone.invalid && phone.errors" class="text-danger">
+            <div *ngIf="!!phone.errors.required">Numer telefonu jest wymagany</div>
+            <div *ngIf="!!phone.errors.minlength">Numer telefonu musi mieć conajmniej 3 znaki</div>
+            <div *ngIf="!!phone.errors.maxlength">Numer telefonu nie może być dłuższy niż 12 znaków</div>
+            <div *ngIf="!!phone.errors.pattern">Numer telefonu jest nieprawidłowy</div>
+        </div>
+    </div>
+
+    <div ngModelGroup="survey" *ngIf="reservation.survey">
+        <div ngModelGroup="items">
+            <h2>Ankieta</h2>
+            <survey-items [reservation]="reservation"></survey-items>
+        </div>
+    </div>
+
+    <!-- <p>Reservation: {{ reservation | json }}</p> -->
+
+    <p class="btn-group">
+        <button class="btn btn-primary me-1" (click)="onCancel()">Anuluj</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Zarezerwuj termin</button>
+    </p>
+</form>

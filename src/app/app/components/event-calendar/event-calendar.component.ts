@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarDateFormatter, CalendarEvent, CalendarMonthViewDay, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
 import { WeekDay } from 'calendar-utils';
@@ -25,6 +25,7 @@ export class EventCalendarComponent implements OnInit {
   @Input() maxDate!: Date;
   @Input() eventDates!: Date[];
   @Input() eventsByDate: ApiEventByDate[] = [];
+  @Output() dateSelect: EventEmitter<string> = new EventEmitter();
 
   locale: string = 'pl';
   view: CalendarView | CalendarPeriod = CalendarView.Month;
@@ -93,7 +94,7 @@ export class EventCalendarComponent implements OnInit {
     }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
-        alert('idDate: ' + result);
+        this.dateSelect.emit(result);
       },
       (reason) => {},
     );

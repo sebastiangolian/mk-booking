@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CalendarEvent } from 'angular-calendar';
 import { first } from 'rxjs/operators';
 import { ApiEventByDate } from '../../interfaces/api-event-by-date.interface';
@@ -20,7 +20,7 @@ export class EventComponent implements OnInit {
   minDate!: Date;
   maxDate!: Date;
   eventDates!: Date[];
-  constructor(private route: ActivatedRoute, private eventService: EventService) {}
+  constructor(private route: ActivatedRoute, private eventService: EventService, private router: Router) {}
 
   ngOnInit(): void {
     const idEvent = this.route.snapshot.paramMap.get('idEvent');
@@ -28,6 +28,10 @@ export class EventComponent implements OnInit {
       this.idEvent = idEvent;
       this.fetchEvent();
     }
+  }
+
+  onDateSelect(idDate: string): void {
+    this.router.navigate(['reservation-create/', this.idEvent, 'date', idDate]);
   }
 
   private fetchEvent(): void {
