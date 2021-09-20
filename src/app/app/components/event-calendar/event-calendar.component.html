@@ -3,14 +3,14 @@
         <div class="btn-group float-md-start mb-md-0 mb-2">
             <button
                 class="btn btn-primary"
-                (click)="decrement()"
+                (click)="onPrevMonth()"
                 [disabled]="prevBtnDisabled">
                 Poprzedni
             </button>
-            <button class="btn btn-outline-secondary" (click)="today()">Aktualny</button>
+            <button class="btn btn-outline-secondary" (click)="onCurrentMonth()">Aktualny</button>
             <button
                 class="btn btn-primary"
-                (click)="increment()"
+                (click)="onNextMonth()"
                 [disabled]="nextBtnDisabled">
                 Następny
             </button>
@@ -31,25 +31,10 @@
         [events]="calendarEvents"
         [locale]="locale"
         [weekStartsOn]="weekStartsOn"
-        (dayClicked)="dayClicked($event.day)"
         (beforeViewRender)="beforeMonthViewRender($event)"
         [cellTemplate]="customCellTemplate"
         [weekendDays]="weekendDays">
     </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-        *ngSwitchCase="'week'"
-        [viewDate]="viewDate"
-        [events]="calendarEvents"
-        [locale]="locale"
-        [weekStartsOn]="weekStartsOn"
-        [weekendDays]="weekendDays">
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-        *ngSwitchCase="'day'"
-        [viewDate]="viewDate"
-        [events]="calendarEvents"
-        [locale]="locale">
-    </mwl-calendar-day-view>
 </div>
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale">

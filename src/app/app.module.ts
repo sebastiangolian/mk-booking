@@ -11,7 +11,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AppRoutingModule } from './app-routing.module';
 import { EventCalendarComponent } from './app/components/event-calendar/event-calendar.component';
 import { EventItemComponent } from './app/components/event-item/event-item.component';
-import { TestComponent } from './app/components/test/test.component';
 import { AppComponent } from './app/pages/app/app.component';
 import { EventComponent } from './app/pages/event/event.component';
 import { EventsComponent } from './app/pages/events/events.component';
@@ -19,7 +18,14 @@ import { EventsComponent } from './app/pages/events/events.component';
 registerLocaleData(localePl);
 
 @NgModule({
-  declarations: [AppComponent, TestComponent, EventItemComponent, EventsComponent, EventComponent, EventCalendarComponent],
+  declarations: [
+    //decorations
+    AppComponent,
+    EventItemComponent,
+    EventsComponent,
+    EventComponent,
+    EventCalendarComponent,
+  ],
   imports: [
     //imorts
     BrowserModule,

@@ -2,44 +2,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarDateFormatter, CalendarEvent, CalendarMonthViewDay, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
 import { WeekDay } from 'calendar-utils';
-import { addDays, addMonths, addWeeks, endOfDay, endOfMonth, endOfWeek, startOfDay, startOfMonth, startOfWeek, subDays, subMonths, subWeeks } from 'date-fns';
 import { ApiEventByDate } from '../../interfaces/api-event-by-date.interface';
 import { CustomDateFormatter } from '../../providers/custom-date-formatter.provider';
+import { addPeriod, CalendarPeriod, endOfPeriod, subPeriod } from '../../utilities/event-calendar.utilities';
 import { ApiDate } from './../../interfaces/api-date.interface';
-
-type CalendarPeriod = 'day' | 'week' | 'month';
-
-function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
-  return {
-    day: addDays,
-    week: addWeeks,
-    month: addMonths,
-  }[period](date, amount);
-}
-
-function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
-  return {
-    day: subDays,
-    week: subWeeks,
-    month: subMonths,
-  }[period](date, amount);
-}
-
-function startOfPeriod(period: CalendarPeriod, date: Date): Date {
-  return {
-    day: startOfDay,
-    week: startOfWeek,
-    month: startOfMonth,
-  }[period](date);
-}
-
-function endOfPeriod(period: CalendarPeriod, date: Date): Date {
-  return {
-    day: endOfDay,
-    week: endOfWeek,
-    month: endOfMonth,
-  }[period](date);
-}
 
 @Component({
   selector: 'event-calendar',
@@ -59,15 +25,14 @@ export class EventCalendarComponent implements OnInit {
   @Input() maxDate!: Date;
   @Input() eventDates!: Date[];
   @Input() eventsByDate: ApiEventByDate[] = [];
-  view: CalendarView | CalendarPeriod = CalendarView.Month;
-  CALENDAR_VIEW = CalendarView;
-  viewDate = new Date();
+
   locale: string = 'pl';
+  view: CalendarView | CalendarPeriod = CalendarView.Month;
+  viewDate = new Date();
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
   prevBtnDisabled: boolean = false;
   nextBtnDisabled: boolean = false;
-  closeResult = '';
   currentDates: ApiDate[] = [];
 
   constructor(private modalService: NgbModal) {}
@@ -76,24 +41,16 @@ export class EventCalendarComponent implements OnInit {
     this.dateOrViewChanged();
   }
 
-  increment(): void {
+  onNextMonth(): void {
     this.changeDate(addPeriod(this.view, this.viewDate, 1));
   }
 
-  decrement(): void {
+  onPrevMonth(): void {
     this.changeDate(subPeriod(this.view, this.viewDate, 1));
   }
 
-  today(): void {
+  onCurrentMonth(): void {
     this.changeDate(new Date());
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    //alert(events[0].title);
   }
 
   dateIsValid(date: Date): boolean {
@@ -122,22 +79,11 @@ export class EventCalendarComponent implements OnInit {
     this.dateOrViewChanged();
   }
 
-  changeView(view: CalendarPeriod): void {
-    this.view = view;
-    this.dateOrViewChanged();
-  }
-
   dateOrViewChanged(): void {
     const firstDayCurrentView = endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1));
     const lastDayCurrentView = endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 0));
     this.prevBtnDisabled = firstDayCurrentView <= this.minDate;
     this.nextBtnDisabled = lastDayCurrentView >= this.maxDate;
-
-    if (this.viewDate < this.minDate) {
-      this.changeDate(this.minDate);
-    } else if (this.viewDate > this.maxDate) {
-      this.changeDate(this.maxDate);
-    }
   }
 
   open(content: TemplateRef<any>, day: WeekDay) {
@@ -149,9 +95,7 @@ export class EventCalendarComponent implements OnInit {
       (result) => {
         alert('idDate: ' + result);
       },
-      (reason) => {
-        //this.closeResult = `Dismissed`;
-      },
+      (reason) => {},
     );
   }
 }

@@ -26,7 +26,6 @@ export class ApiEventMapper {
     const apiEventsByDate: ApiEventByDate[] = [];
 
     event.dates.forEach((curDate) => {
-      //first element
       if (apiEventsByDate.length === 0) {
         apiEventsByDate.push(ApiEventMapper.toApiEventByDate(event, curDate.date, curDate));
       } else {
