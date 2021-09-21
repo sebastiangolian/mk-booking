@@ -11,7 +11,7 @@ import { ApiItems } from './../interfaces/api.items.interface';
   providedIn: 'root',
 })
 export class EventService {
-  private url: string = environment.api.endpoint + '/events';
+  private url: string = environment.endpoint + '/events';
 
   constructor(protected http: HttpClient) {}
 

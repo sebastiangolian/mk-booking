@@ -49,6 +49,14 @@
                         </div>
                     </td>
                 </tr>
+                <tr *ngIf="reservation.payment">
+                    <td>Płatność</td>
+                    <td>
+                        <div>
+                            {{reservation.payment | json}}
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 

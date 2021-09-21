@@ -12,7 +12,7 @@ import { Payment } from './../interfaces/payment.interface';
   providedIn: 'root',
 })
 export class ReservationService {
-  private url: string = environment.api.endpoint + '/reservation';
+  private url: string = environment.endpoint + '/reservation';
 
   constructor(protected http: HttpClient) {}
 

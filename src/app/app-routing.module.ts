@@ -4,6 +4,7 @@ import { EventComponent } from './app/pages/event/event.component';
 import { EventsComponent } from './app/pages/events/events.component';
 import { ReservationConfirmComponent } from './app/pages/reservation-confirm/reservation-confirm.component';
 import { ReservationCreateComponent } from './app/pages/reservation-create/reservation-create.component';
+import { ReservationPaymentComponent } from './app/pages/reservation-payment/reservation-payment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/events', pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'events/:idEvent', component: EventComponent },
   { path: 'reservation-create/:idEvent/date/:idDate', component: ReservationCreateComponent },
   { path: 'reservation-confirm/:idReservation', component: ReservationConfirmComponent },
+  { path: 'reservation-payment/:idReservation', component: ReservationPaymentComponent },
 ];
 
 @NgModule({

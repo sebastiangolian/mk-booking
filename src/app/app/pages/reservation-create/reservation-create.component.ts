@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { ApiEvent } from './../../interfaces/api-event.interface';
 import { Reservation } from './../../interfaces/reservation.interface';
 import { EventService } from './../../services/event.service';
@@ -39,7 +40,17 @@ export class ReservationCreateComponent implements OnInit {
       .postReservation(this.reservation)
       .pipe(first())
       .subscribe((reservation) => {
-        this.router.navigate(['reservation-confirm', reservation.idReservation]);
+        console.log(reservation);
+        if (reservation.payment !== null && reservation.idReservation) {
+          this.reservationService
+            .postPayment(reservation.idReservation, { redirectAfterPaymentUrl: `${environment.redirectAfterPaymentUrl}${reservation.idReservation}` })
+            .pipe(first())
+            .subscribe((payment) => {
+              window.location.href = payment.paymentUrl;
+            });
+        } else {
+          this.router.navigate(['reservation-confirm', reservation.idReservation]);
+        }
       });
   }
 

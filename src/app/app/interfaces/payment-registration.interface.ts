@@ -1,3 +1,4 @@
 export interface PaymentRegistration {
-  blikCode: string;
+  blikCode?: string;
+  redirectAfterPaymentUrl?: string;
 }

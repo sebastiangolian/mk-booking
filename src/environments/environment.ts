@@ -1,8 +1,5 @@
 export const environment = {
   production: false,
-  api: {
-    endpoint: 'https://rezerwacja.martynaklewinowska.pl/api',
-    jwtAllowedDomains: ['rezerwacja.martynaklewinowska.pl'],
-    tokenStorageName: 'rezerwacja-martynaklewinowska-token',
-  },
+  endpoint: 'https://rezerwacja.martynaklewinowska.pl/api',
+  redirectAfterPaymentUrl: 'http://localhost:4200/#/reservation-confirm/',
 };
