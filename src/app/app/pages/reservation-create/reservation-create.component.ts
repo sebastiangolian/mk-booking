@@ -38,8 +38,8 @@ export class ReservationCreateComponent implements OnInit {
     this.reservationService
       .postReservation(this.reservation)
       .pipe(first())
-      .subscribe(() => {
-        this.router.navigate(['events']);
+      .subscribe((reservation) => {
+        this.router.navigate(['reservation-confirm', reservation.idReservation]);
       });
   }
 

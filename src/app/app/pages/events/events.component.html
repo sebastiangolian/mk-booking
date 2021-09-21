@@ -1,6 +1,12 @@
 <h1>Wydarzenia</h1>
 <div class="row">
-    <ng-container *ngIf="events$|async as events">
+    <ng-container *ngIf="events$|async as events;">
         <event-item *ngFor="let event of events" [event]="event"></event-item>
+        <div *ngIf="events.length === 0" class="p-2 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h2>Brak nowych wydarzeń</h2>
+                <p class="me-5 fs-5">Aktualnie nie mamy dostępnych nowych wydarzeń w naszej ofercie. Wkrótce wrócimy z nową ofertą.</p>
+            </div>
+        </div>
     </ng-container>
 </div>

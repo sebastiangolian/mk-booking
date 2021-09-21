@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ApiItem } from '../interfaces/api-item.interface';
+import { PaymentRegistration } from '../interfaces/payment-registration.interface';
 import { Reservation } from '../interfaces/reservation.interface';
+import { Payment } from './../interfaces/payment.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +24,15 @@ export class ReservationService {
   getReservation(idReservation: string): Observable<Reservation> {
     const url = `${this.url}/${idReservation}`;
     return this.http.get<ApiItem<Reservation>>(url).pipe(map((api) => api.item));
+  }
+
+  postPayment(idReservation: string, paymentRegistration: PaymentRegistration): Observable<Payment> {
+    const url = `${this.url}/${idReservation}/payment`;
+    return this.http.post<ApiItem<Payment>>(url, paymentRegistration).pipe(map((api) => api.item));
+  }
+
+  getPayment(idReservation: string): Observable<Payment> {
+    const url = `${this.url}/${idReservation}/payment`;
+    return this.http.get<ApiItem<Payment>>(url).pipe(map((api) => api.item));
   }
 }

@@ -17,6 +17,7 @@ import { EventsComponent } from './app/pages/events/events.component';
 import { ReservationCreateComponent } from './app/pages/reservation-create/reservation-create.component';
 import { SurveyItemComponent } from './app/components/survey-item/survey-item.component';
 import { SurveyItemsComponent } from './app/components/survey-items/survey-items.component';
+import { ReservationConfirmComponent } from './app/pages/reservation-confirm/reservation-confirm.component';
 
 registerLocaleData(localePl);
 
@@ -31,6 +32,7 @@ registerLocaleData(localePl);
     ReservationCreateComponent,
     SurveyItemComponent,
     SurveyItemsComponent,
+    ReservationConfirmComponent,
   ],
   imports: [
     //imorts

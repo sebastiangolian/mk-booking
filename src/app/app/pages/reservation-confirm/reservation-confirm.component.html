@@ -1,0 +1,56 @@
+<div class="p-2 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h2>Dziękujemy za rezerwację terminu</h2>
+        <p class="me-5 fs-5">Miejsce na treść po zamówieniu. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <a class="btn btn-primary" [routerLink]="'/events/'">Wróć do wydarzeń</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-10">
+        <table class="table table-light table-striped table-hover table-bordered rounded-3">
+            <thead>
+                <tr>
+                    <td colspan="2" class="table-active font-weight-bold">Potwierdzenie rezerwacji</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Identyfikator rezerwacji</td>
+                    <td [innerText]="reservation.idReservation"></td>
+                </tr>
+                <tr>
+                    <td>Nr rezerwacji</td>
+                    <td [innerText]="reservation.reservationNumber"></td>
+                </tr>
+                <tr>
+                    <td>Imię</td>
+                    <td [innerText]="reservation.firstName"></td>
+                </tr>
+                <tr>
+                    <td>Nazwisko</td>
+                    <td [innerText]="reservation.lastName"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td [innerText]="reservation.email"></td>
+                </tr>
+                <tr>
+                    <td>Telefon</td>
+                    <td [innerText]="reservation.phone"></td>
+                </tr>
+                <tr *ngIf="reservation.survey">
+                    <td>Ankieta</td>
+                    <td>
+                        <div>
+                            <p *ngFor="let surveyItem of reservation.survey.items">{{ surveyItem.question }}: {{ surveyItem.response }}</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
