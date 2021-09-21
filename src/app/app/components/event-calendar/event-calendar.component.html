@@ -39,7 +39,7 @@
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div (click)="open(content,day)">
-        <div *ngIf="day.badgeTotal > 0" class="text-center text-secondary fw-bold mt-2">Dostępne terminy</div>
+        <div *ngIf="day.badgeTotal > 0" class="text-center text-secondary fw-bold mt-2" [style.font-size.em]="0.8">Dostępne terminy</div>
         <span class="cal-day-number text-right">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
 </ng-template>
