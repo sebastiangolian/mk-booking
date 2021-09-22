@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -13,15 +13,36 @@ import { ReservationService } from './../../services/reservation.service';
   styleUrls: ['./reservation-create.component.scss'],
 })
 export class ReservationCreateComponent implements OnInit {
-  reservation: Reservation = {
-    firstName: 'Jan',
-    lastName: 'Testowy',
-    email: 'takidotestow@gmail.com',
-    phone: '777777777',
-  };
   idEvent!: string;
   event!: ApiEvent;
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private eventService: EventService, private router: Router) {}
+  reservation: Reservation = { firstName: '', lastName: '', email: '', phone: '' };
+  isValid: boolean = true;
+
+  @ViewChild('f') f!: NgForm;
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private eventService: EventService, private router: Router) {
+    if (environment.name != 'prod') {
+      this.reservation.firstName = 'Jan';
+      this.reservation.lastName = 'Testowy';
+      this.reservation.email = 'takidotestow@gmail.com';
+      this.reservation.phone = '777777777';
+    }
+  }
+
+  get isReservationValid(): boolean {
+    if (this.f.valid) {
+      return this.f.valid && this.isReservationSurveyValid;
+    } else {
+      return false;
+    }
+  }
+
+  get isReservationSurveyValid(): boolean {
+    if (this.reservation.survey) {
+      return !this.reservation.survey.items.some((input) => (input.response === null || input.response === '') && input.required === true);
+    } else {
+      return true;
+    }
+  }
 
   ngOnInit(): void {
     const idDate = this.route.snapshot.paramMap.get('idDate');
@@ -35,12 +56,15 @@ export class ReservationCreateComponent implements OnInit {
     }
   }
 
+  onChange() {
+    this.isValid = !this.isReservationValid;
+  }
+
   onSubmit(f: NgForm) {
     this.reservationService
       .postReservation(this.reservation)
       .pipe(first())
       .subscribe((reservation) => {
-        console.log(reservation);
         if (reservation.payment !== null && reservation.idReservation) {
           this.reservationService
             .postPayment(reservation.idReservation, { redirectAfterPaymentUrl: `${environment.redirectAfterPaymentUrl}${reservation.idReservation}` })

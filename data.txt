@@ -1,3 +1,11 @@
+2. błedy api
+3. wyswietlanie płatności
+4. odświeżanie płatnosci
+
+
+
+
+
 https://rezerwacja.martynaklewinowska.pl
 
 https://rezerwacja.martynaklewinowska.pl/api/events
