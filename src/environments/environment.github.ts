@@ -1,9 +1,9 @@
 export const environment = {
-  name: 'dev',
+  name: 'github',
+  production: true,
   version: '1.0.0',
-  production: false,
   endpoint: 'https://rezerwacja.martynaklewinowska.site/api',
-  redirectAfterPaymentUrl: 'http://localhost:4200/#/reservation-confirm/',
+  redirectAfterPaymentUrl: 'https://sebastiangolian.github.io/mk-booking/#/reservation-confirm/',
   httpRetry: 1,
   messageDismissible: true,
   messageSuccessTimeout: 3000,

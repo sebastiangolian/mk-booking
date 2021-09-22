@@ -1,24 +1,36 @@
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
-        <div class="container-xxl">
-            <a class="navbar-brand" href="#" [innerText]="title"></a>
-            <button class="navbar-toggler" type="button"
-                (click)="collapse.toggle()"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" #collapse="ngbCollapse" [(ngbCollapse)]="!isCollapsed">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Wydarzenia</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main class="container-xxl">
+    <div class="container-fluid" [style.background-color]="'#EDEDED'">
+        <a href="#">
+            <img class="d-block img-fluid mx-auto" src="https://sklep.martynaklewinowska.pl/resource/logo.jpg">
+        </a>
+    </div>
+    <main class="container-xxl mt-5">
         <messages-alert></messages-alert>
         <router-outlet></router-outlet>
     </main>
 </body>
+
+<footer class="">
+    <div class="bg-dark text-light">
+        <div class="container-xl">
+            <div class="row p-3 text-center">
+                <div class="col-12 col-md-6 text-md-left mb-1">
+                    <a class="text-light text-decoration-none" href="#/event">Wydarzenia</a> |
+                    <a class="text-light text-decoration-none" href="http://www.martynaklewinowska.pl/kontakt">Kontakt</a> |
+                    <a class="text-light text-decoration-none" href="http://www.martynaklewinowska.pl/blog">Blog</a> |
+                    <a class="text-light text-decoration-none" href="https://sklep.martynaklewinowska.pl/resource/sklep.regulamin.pdf">Regulamin</a> |
+                    <a class="text-light text-decoration-none" href="https://sklep.martynaklewinowska.pl/resource/sklep.polityka.prywatnosci.pdf">Polityka prywatności</a>
+                </div>
+                <div class="col-12 col-md-3 text-md-center mb-1"><a class="text-light text-decoration-none mr-2"
+                        href="https://www.facebook.com/martynaklewinowska">
+                        <img _ngcontent-eya-c19="" src="assets/icons/facebook.svg" class="" width="32"
+                            height="32" title="">
+                    </a><a class="text-light text-decoration-none" href="https://www.instagram.com/martynaklewinowska/">
+                        <img _ngcontent-eya-c19="" src="assets/icons/instagram.svg" class="" width="32"
+                            height="32" title="">
+                    </a></div>
+                <div class="col-12 col-md-3 text-md-right"><a class="text-light text-decoration-none" href="mailto:info@martynaklewinowska.pl">Copyright © 1.0.0</a></div>
+            </div>
+        </div>
+    </div>
+</footer>

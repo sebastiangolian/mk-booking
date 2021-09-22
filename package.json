@@ -8,9 +8,10 @@
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "predeploy": "ng build --configuration production --base-href=/mk-booking/",
+    "predeploy": "ng build --configuration github --base-href=/mk-booking/",
     "deploy": "gh-pages -d dist/mk-booking/"
   },
   "private": true,

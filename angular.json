@@ -26,14 +26,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["node_modules/angular-calendar/css/angular-calendar.css", "src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -58,6 +52,15 @@
               ],
               "outputHashing": "all"
             },
+            "github": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.github.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -74,6 +77,9 @@
           "configurations": {
             "production": {
               "browserTarget": "mk-booking:build:production"
+            },
+            "github": {
+              "browserTarget": "mk-booking:build:github"
             },
             "development": {
               "browserTarget": "mk-booking:build:development"
@@ -95,14 +101,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["node_modules/angular-calendar/css/angular-calendar.css", "src/styles.scss"],
             "scripts": []
           }
         }

@@ -3,3 +3,5 @@
     <event-calendar [calendarEvents]="calendarEvents" [minDate]="minDate" [maxDate]="maxDate" [eventDates]="eventDates" [eventsByDate]="eventsByDate"
         (dateSelect)="onDateSelect($event)"></event-calendar>
 </ng-container>
+
+<a class="btn btn-primary mt-2" [routerLink]="'/events/'">Wróć do wydarzeń</a>

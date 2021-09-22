@@ -1,13 +1,3 @@
-odświeżanie płatnosci
-nagłówek 
-stopka
-environment.github
-environment.prod
-
-
-
-
-
 https://rezerwacja.martynaklewinowska.pl
 
 https://rezerwacja.martynaklewinowska.pl/api/events
