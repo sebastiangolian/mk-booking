@@ -1,0 +1,5 @@
+<ng-container *ngFor="let message of messages">
+  <ngb-alert [type]="message.type" [dismissible]="message.dismissible">
+    <span [innerHtml]="message.text"></span>
+  </ngb-alert>
+</ng-container>
