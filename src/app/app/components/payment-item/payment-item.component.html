@@ -6,7 +6,14 @@
         </tr>
         <tr>
             <td>Status</td>
-            <td [innerText]="payment.description"></td>
+            <td [style.background-color]="'white'">
+                {{payment.description}}
+                <img *ngIf="payment.isProgress" height="50" src="assets/images/loading.gif" />
+            </td>
+        </tr>
+        <tr>
+            <td>isProgress</td>
+            <td [innerText]="payment.isProgress"></td>
         </tr>
         <tr>
             <td>Data płatności</td>

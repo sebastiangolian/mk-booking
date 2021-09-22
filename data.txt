@@ -1,4 +1,8 @@
-4. odświeżanie płatnosci
+odświeżanie płatnosci
+nagłówek 
+stopka
+environment.github
+environment.prod
 
 
 

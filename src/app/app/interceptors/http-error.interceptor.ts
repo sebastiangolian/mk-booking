@@ -25,7 +25,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   clientSideError(error: ErrorEvent): void {
-    this.messageService.sendMessage(error.error.message, MessageType.error);
+    this.messageService.sendMessage(error.error.message, MessageType.danger);
   }
 
   serverSideError(error: HttpErrorResponse, request: HttpRequest<any>): void {
@@ -43,11 +43,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         break;
       }
       case 500: {
-        this.messageService.sendMessage('Wystąpił nieoczekiwany problem. Proszę spróbuj ponownie', MessageType.error);
+        this.messageService.sendMessage('Wystąpił nieoczekiwany problem. Proszę spróbuj ponownie', MessageType.danger);
         break;
       }
       default: {
-        this.messageService.sendMessage(`(${error.status}) ${error.message}`, MessageType.error);
+        this.messageService.sendMessage(`(${error.status}) ${error.message}`, MessageType.danger);
         break;
       }
     }
