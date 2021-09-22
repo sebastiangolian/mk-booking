@@ -1,5 +1,3 @@
-2. błedy api
-3. wyswietlanie płatności
 4. odświeżanie płatnosci
 
 

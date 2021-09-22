@@ -21,6 +21,7 @@ import { EventsComponent } from './app/pages/events/events.component';
 import { ReservationConfirmComponent } from './app/pages/reservation-confirm/reservation-confirm.component';
 import { ReservationCreateComponent } from './app/pages/reservation-create/reservation-create.component';
 import { ReservationPaymentComponent } from './app/pages/reservation-payment/reservation-payment.component';
+import { PaymentItemComponent } from './app/components/payment-item/payment-item.component';
 
 registerLocaleData(localePl);
 
@@ -38,6 +39,7 @@ registerLocaleData(localePl);
     ReservationConfirmComponent,
     ReservationPaymentComponent,
     MessagesAlertComponent,
+    PaymentItemComponent,
   ],
   imports: [
     //imorts
