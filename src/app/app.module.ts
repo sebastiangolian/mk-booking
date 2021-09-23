@@ -21,7 +21,6 @@ import { EventComponent } from './app/pages/event/event.component';
 import { EventsComponent } from './app/pages/events/events.component';
 import { ReservationConfirmComponent } from './app/pages/reservation-confirm/reservation-confirm.component';
 import { ReservationCreateComponent } from './app/pages/reservation-create/reservation-create.component';
-import { ReservationPaymentComponent } from './app/pages/reservation-payment/reservation-payment.component';
 
 registerLocaleData(localePl);
 
@@ -37,7 +36,6 @@ registerLocaleData(localePl);
     SurveyItemComponent,
     SurveyItemsComponent,
     ReservationConfirmComponent,
-    ReservationPaymentComponent,
     MessagesAlertComponent,
     PaymentItemComponent,
   ],

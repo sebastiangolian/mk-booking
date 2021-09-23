@@ -20,7 +20,7 @@ export class ReservationCreateComponent implements OnInit {
 
   @ViewChild('f') f!: NgForm;
   constructor(private route: ActivatedRoute, private reservationService: ReservationService, private eventService: EventService, private router: Router) {
-    if (environment.name != 'prod') {
+    if (environment.name === 'dev') {
       this.reservation.firstName = 'Jan';
       this.reservation.lastName = 'Testowy';
       this.reservation.email = 'takidotestow@gmail.com';
@@ -64,18 +64,7 @@ export class ReservationCreateComponent implements OnInit {
     this.reservationService
       .postReservation(this.reservation)
       .pipe(first())
-      .subscribe((reservation) => {
-        if (reservation.payment !== null && reservation.idReservation) {
-          this.reservationService
-            .postPayment(reservation.idReservation, { redirectAfterPaymentUrl: `${environment.redirectAfterPaymentUrl}${reservation.idReservation}` })
-            .pipe(first())
-            .subscribe((payment) => {
-              window.location.href = payment.paymentUrl;
-            });
-        } else {
-          this.router.navigate(['reservation-confirm', reservation.idReservation]);
-        }
-      });
+      .subscribe((reservation) => this.router.navigate(['reservation-confirm', reservation.idReservation]));
   }
 
   onCancel(): void {

@@ -1,10 +1,12 @@
-<div class="p-2 mb-4 bg-light rounded-3">
+<div class="p-2 mb-4 bg-light rounded-3" *ngIf="reservation">
     <div class="container-fluid py-5">
         <h2>Dziękujemy za rezerwację terminu</h2>
-        <p class="me-5 fs-5">Miejsce na treść po zamówieniu. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-            text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <ng-container *ngIf="reservation.payment">
+            <p class="me-5 fs-5" *ngIf="reservation.payment.canStartNewPayment">
+                Dziękujemy za rejestrację na wydarzenie. Termin jest zarezerwowany na 15 min. Kliknij przycisk "zapłać", aby dokończyć rezerwację.
+            </p>
+            <button class="btn btn-primary me-1" *ngIf="reservation.payment.canStartNewPayment" (click)="onPay()">Zapłać</button>
+        </ng-container>
         <a class="btn btn-primary" [routerLink]="'/events/'">Wróć do wydarzeń</a>
     </div>
 </div>
@@ -53,6 +55,7 @@
                     <td>Płatność</td>
                     <td>
                         <payment-item [payment]="reservation.payment"></payment-item>
+                        <button class="btn btn-primary" *ngIf="reservation.payment.canStartNewPayment" (click)="onPay()">Zapłać</button>
                     </td>
                 </tr>
             </tbody>

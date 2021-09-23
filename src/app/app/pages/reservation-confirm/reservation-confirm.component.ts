@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { delay, first, repeatWhen, takeUntil, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Payment } from './../../interfaces/payment.interface';
 import { Reservation } from './../../interfaces/reservation.interface';
 import { ReservationService } from './../../services/reservation.service';
@@ -53,5 +54,16 @@ export class ReservationConfirmComponent implements OnInit {
       .subscribe((payment) => {
         this.reservation.payment = payment;
       });
+  }
+
+  onPay(): void {
+    if (this.reservation.payment !== null && this.reservation.idReservation) {
+      this.reservationService
+        .postPayment(this.reservation.idReservation, { redirectAfterPaymentUrl: `${environment.redirectAfterPaymentUrl}${this.reservation.idReservation}` })
+        .pipe(first())
+        .subscribe((payment) => {
+          window.location.href = payment.paymentUrl;
+        });
+    }
   }
 }
